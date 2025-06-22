@@ -34,6 +34,16 @@ export default defineConfig({
     // 支持css class组合，eg: `<div class="hover:(bg-gray-400 font-medium) font-(light mono)">测试 unocss</div>`
     transformerVariantGroup(),
   ],
+  // preflights 用于添加全局基础样式
+  preflights: [
+    {
+      getCSS: () => `
+        view,swiper,swiper-item,image{
+          box-sizing: border-box;
+        }
+      `,
+    },
+  ],
   shortcuts: [
     {
       center: 'flex justify-center items-center',
