@@ -4,7 +4,7 @@
   layout: 'tabbar',
   style: {
     // 'custom' 表示开启自定义导航栏，默认 'default'
-    navigationStyle: 'custom',
+    // navigationStyle: 'custom',
     navigationBarTitleText: '首页',
   },
 }
@@ -89,7 +89,7 @@ const bannerList = [
       </template>
     </common-title>
 
-    <view class="grid grid-flow-col grid-rows-3 mt-30rpx gap-15rpx px-30rpx pb-50rpx">
+    <view class="grid grid-cols-3 mt-30rpx gap-15rpx gap-15rpx px-30rpx pb-50rpx">
       <theme-item v-for="(item, index) in 8" :key=" index" />
       <theme-item is-more />
     </view>

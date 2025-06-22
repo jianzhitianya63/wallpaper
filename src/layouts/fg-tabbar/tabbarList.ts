@@ -22,19 +22,37 @@ export const tabbarList = [
     iconPath: 'static/tabbar/home.png',
     selectedIconPath: 'static/tabbar/homeHL.png',
     pagePath: 'pages/index/index',
-    text: '首页',
+    text: '推荐',
     icon: 'home',
     iconType: 'uiLib',
   },
   {
     iconPath: 'static/tabbar/example.png',
     selectedIconPath: 'static/tabbar/exampleHL.png',
-    pagePath: 'pages/about/about',
-    text: '关于',
+    pagePath: 'pages/classify/classify',
+    text: '分类',
     icon: 'i-carbon-code',
     // 注意 unocss 的图标需要在 页面上引入一下，或者配置到 unocss.config.ts 的 safelist 中
     iconType: 'unocss',
   },
+  {
+    iconPath: 'static/tabbar/example.png',
+    selectedIconPath: 'static/tabbar/exampleHL.png',
+    pagePath: 'pages/user/user',
+    text: '我的',
+    icon: 'i-carbon-code',
+    // 注意 unocss 的图标需要在 页面上引入一下，或者配置到 unocss.config.ts 的 safelist 中
+    iconType: 'unocss',
+  },
+  // {
+  //   iconPath: 'static/tabbar/example.png',
+  //   selectedIconPath: 'static/tabbar/exampleHL.png',
+  //   pagePath: 'pages/about/about',
+  //   text: '关于',
+  //   icon: 'i-carbon-code',
+  //   // 注意 unocss 的图标需要在 页面上引入一下，或者配置到 unocss.config.ts 的 safelist 中
+  //   iconType: 'unocss',
+  // },
   // {
   //   pagePath: 'pages/my/index',
   //   text: '我的',
