@@ -40,7 +40,7 @@ function clickContact() {
         <view class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
           <!-- left -->
           <view class="flex items-center justify-center">
-            <uni-icons type="download-filled" size="30" color="#28b389" />
+            <uni-icons type="download-filled" size="30" class="!color-primary" />
             <view class="pl-20rpx text-slate-500">
               我的下载
             </view>
@@ -57,7 +57,7 @@ function clickContact() {
         <view class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
           <!-- left -->
           <view class="flex items-center justify-center">
-            <uni-icons type="download-filled" size="30" color="#28b389" />
+            <uni-icons type="download-filled" size="30" class="!color-primary" />
             <view class="pl-20rpx text-slate-500">
               我的下载
             </view>
@@ -74,7 +74,7 @@ function clickContact() {
         <view class="relative h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
           <!-- left -->
           <view class="flex items-center justify-center">
-            <uni-icons type="download-filled" size="30" color="#28b389" />
+            <uni-icons type="download-filled" size="30" class="!color-primary" />
             <view class="pl-20rpx text-slate-500">
               联系客服
             </view>
@@ -107,7 +107,7 @@ function clickContact() {
         <view class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
           <!-- left -->
           <view class="flex items-center justify-center">
-            <uni-icons type="download-filled" size="30" color="#28b389" />
+            <uni-icons type="download-filled" size="30" class="!color-primary" />
             <view class="pl-20rpx text-slate-500">
               我的下载
             </view>
@@ -124,7 +124,7 @@ function clickContact() {
         <view class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
           <!-- left -->
           <view class="flex items-center justify-center">
-            <uni-icons type="download-filled" size="30" color="#28b389" />
+            <uni-icons type="download-filled" size="30" class="!color-primary" />
             <view class="pl-20rpx text-slate-500">
               我的下载
             </view>

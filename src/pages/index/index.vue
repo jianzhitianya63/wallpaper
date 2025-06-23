@@ -35,8 +35,8 @@ const bannerList = [
 
     <view class="mx-auto h-80rpx w-690rpx flex rounded-50rpx bg-#f9f9f9 px-30rpx leading-80rpx">
       <view class="jusify-center w-140rpx flex items-center">
-        <uni-icons type="sound-filled" :size="20" color="#28b389" />
-        <text class="text-28rpx text-color-#28b389 font-bold">
+        <uni-icons type="sound-filled" :size="20" class="!color-primary" />
+        <text class="text-28rpx text-primary font-bold">
           公告
         </text>
       </view>
@@ -60,10 +60,12 @@ const bannerList = [
           <text>每日推荐</text>
         </template>
         <template #custom>
-          <uni-icons type="calendar" :size="18" color="#28b389" />
-          <text class="ml-5rpx items-center text-28rpx text-color-#28b389">
-            <uni-dateformat :date="Date.now()" format="dd日" />
-          </text>
+          <view class="flex items-center text-primary">
+            <uni-icons type="calendar" :size="18" class="!color-primary" />
+            <text class="ml-5rpx items-center text-28rpx">
+              <uni-dateformat :date="Date.now()" format="dd日" />
+            </text>
+          </view>
         </template>
       </common-title>
       <view class="ml-30rpx mt-30rpx w-720rpx">
