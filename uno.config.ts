@@ -52,7 +52,11 @@ export default defineConfig({
   ],
   shortcuts: [
     {
-      center: 'flex justify-center items-center',
+      'center': 'flex justify-center items-center',
+      /** 基础边框样式，如果要加边框必须要加这个，否则边框无效 */
+      'border-base': 'border border-solid',
+      /** 用于调试，框出元素 */
+      'border-test': 'border-t border-solid border-red-500',
     },
   ],
   safelist: [],
@@ -72,6 +76,7 @@ export default defineConfig({
       /** 主题色，用法如: text-primary */
       primary: '#0EA5E9',
       color2: '#676767',
+      color3: '#a7a7a7',
     },
     fontSize: {
       /** 提供更小号的字体，用法如：text-2xs */
