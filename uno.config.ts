@@ -41,6 +41,11 @@ export default defineConfig({
         view,swiper,swiper-item,image{
           box-sizing: border-box;
         }
+        page {
+          background: 
+          linear-gradient(to bottom, transparent, #fff 400rpx),
+          linear-gradient(to right, rgb(14,165,233), rgb(99,102,241));
+        }
       `,
     },
   ],
