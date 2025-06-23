@@ -25,6 +25,24 @@ function clickInfo() {
 function closeInfo() {
   infoPopup.value.close()
 }
+
+const scorePopup = ref(null)
+function clickScore() {
+  scorePopup.value.open()
+}
+
+function closeScore() {
+  scorePopup.value.close()
+}
+
+const userScore = ref(5)
+function onChange(e: any) {
+  userScore.value = e.value
+}
+
+function confirmScore() {
+  console.log(userScore.value)
+}
 </script>
 
 <template>
@@ -57,7 +75,10 @@ function closeInfo() {
           <view>信息</view>
         </view>
         <view>
-          <view class="flex flex-col items-center justify-center px-12rpx py-2rpx text-size-28rpx text-color2">
+          <view
+            class="flex flex-col items-center justify-center px-12rpx py-2rpx text-size-28rpx text-color2"
+            @click="clickScore()"
+          >
             <uni-icons type="star" size="23" />
             <view>评分</view>
           </view>
@@ -176,6 +197,36 @@ function closeInfo() {
               声明: 谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢谢
             </view>
           </scroll-view>
+        </view>
+      </uni-popup>
+
+      <uni-popup ref="scorePopup" :is-mask-click="false">
+        <!-- scorePopup -->
+        <view class="w-70vw rounded-30rpx bg-white p-30rpx">
+          <view class="flex items-center justify-between">
+            <view />
+            <view class="text-size=26rpx text-color2">
+              壁纸评分
+            </view>
+            <!-- close -->
+            <view class="p-10rpx" @click="closeScore()">
+              <uni-icons type="closeempty" size="23" color="#999" />
+            </view>
+          </view>
+
+          <!-- content -->
+          <view class="center py-30rpx">
+            <uni-rate v-model="userScore" allow-half @change="onChange" />
+            <text class="w-80rpx pl-10rpx text-right color-[#FFCA3E] leading-1">
+              {{ userScore }}分
+            </text>
+          </view>
+
+          <view class="center">
+            <button type="default" size="mini" plain :disabled="userScore === 0" @click="confirmScore()">
+              确认评分
+            </button>
+          </view>
         </view>
       </uni-popup>
     </view>
