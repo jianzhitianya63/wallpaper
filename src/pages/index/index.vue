@@ -13,12 +13,15 @@
 <script lang="ts" setup>
 import CommonTitle from '@/components/common-title.vue'
 import ThemeItem from '@/components/theme-item.vue'
+import { THEME_COLORS } from '@/style/theme-constants'
 
 const bannerList = [
   '/static/images/banner1.jpg',
   '/static/images/banner2.jpg',
   '/static/images/banner3.jpg',
 ]
+
+const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
 </script>
 
 <template>
@@ -35,7 +38,7 @@ const bannerList = [
 
     <view class="mx-auto h-80rpx w-690rpx flex rounded-50rpx bg-#f9f9f9 px-30rpx leading-80rpx">
       <view class="jusify-center w-140rpx flex items-center">
-        <uni-icons type="sound-filled" :size="20" class="!color-primary" />
+        <uni-icons type="sound-filled" :size="20" :color="themeColors" />
         <text class="text-28rpx text-primary font-bold">
           公告
         </text>
@@ -61,7 +64,7 @@ const bannerList = [
         </template>
         <template #custom>
           <view class="flex items-center text-primary">
-            <uni-icons type="calendar" :size="18" class="!color-primary" />
+            <uni-icons type="calendar" :size="18" :color="themeColors" />
             <text class="ml-5rpx items-center text-28rpx">
               <uni-dateformat :date="Date.now()" format="dd日" />
             </text>

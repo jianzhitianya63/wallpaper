@@ -9,6 +9,10 @@
 </route>
 
 <script setup>
+import { THEME_COLORS } from '@/style/theme-constants'
+
+const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
+
 function clickContact() {
   uni.makePhoneCall({
     phoneNumber: '17610396552',
@@ -40,7 +44,7 @@ function clickContact() {
         <view class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
           <!-- left -->
           <view class="flex items-center justify-center">
-            <uni-icons type="download-filled" size="30" class="!color-primary" />
+            <uni-icons type="download-filled" size="30" :color="themeColors" />
             <view class="pl-20rpx text-slate-500">
               我的下载
             </view>
@@ -57,7 +61,7 @@ function clickContact() {
         <view class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
           <!-- left -->
           <view class="flex items-center justify-center">
-            <uni-icons type="download-filled" size="30" class="!color-primary" />
+            <uni-icons type="download-filled" size="30" :color="themeColors" />
             <view class="pl-20rpx text-slate-500">
               我的下载
             </view>
@@ -74,7 +78,7 @@ function clickContact() {
         <view class="relative h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
           <!-- left -->
           <view class="flex items-center justify-center">
-            <uni-icons type="download-filled" size="30" class="!color-primary" />
+            <uni-icons type="download-filled" size="30" :color="themeColors" />
             <view class="pl-20rpx text-slate-500">
               联系客服
             </view>
@@ -107,7 +111,7 @@ function clickContact() {
         <view class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
           <!-- left -->
           <view class="flex items-center justify-center">
-            <uni-icons type="download-filled" size="30" class="!color-primary" />
+            <uni-icons type="download-filled" size="30" :color="themeColors" />
             <view class="pl-20rpx text-slate-500">
               我的下载
             </view>
@@ -124,7 +128,7 @@ function clickContact() {
         <view class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
           <!-- left -->
           <view class="flex items-center justify-center">
-            <uni-icons type="download-filled" size="30" class="!color-primary" />
+            <uni-icons type="download-filled" size="30" :color="themeColors" />
             <view class="pl-20rpx text-slate-500">
               我的下载
             </view>
