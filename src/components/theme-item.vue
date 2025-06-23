@@ -11,7 +11,7 @@ defineProps({
   <view>
     <navigator
       v-if="!isMore"
-      url=""
+      url="/pages/classlist/classlist"
       class="relative h-340rpx overflow-hidden rounded-10rpx"
     >
       <image class="h-100% w-100%" src="../static/images/classify1.jpg" mode="aspectFill" />
@@ -26,7 +26,8 @@ defineProps({
 
     <navigator
       v-else
-      url=""
+      url="/pages/classify/classify"
+      open-type="reLaunch"
       class="relative h-340rpx overflow-hidden rounded-10rpx"
     >
       <image class="h-100% w-100%" src="../static/images/more.jpg" mode="aspectFill" />

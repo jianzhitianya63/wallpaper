@@ -3,6 +3,7 @@
     {
       layout: 'tabbar',
       style: {
+        navigationStyle: 'custom',
         navigationBarTitleText: '分类',
       },
     }

@@ -56,6 +56,7 @@
       "type": "home",
       "layout": "tabbar",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "首页"
       }
     },
@@ -72,14 +73,20 @@
       "type": "page",
       "layout": "tabbar",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "分类"
       }
+    },
+    {
+      "path": "pages/classlist/classlist",
+      "type": "page"
     },
     {
       "path": "pages/user/user",
       "type": "page",
       "layout": "tabbar",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "我的"
       }
     }
