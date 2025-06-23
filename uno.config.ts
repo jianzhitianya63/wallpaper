@@ -71,6 +71,7 @@ export default defineConfig({
     colors: {
       /** 主题色，用法如: text-primary */
       primary: '#0EA5E9',
+      color2: '#676767',
     },
     fontSize: {
       /** 提供更小号的字体，用法如：text-2xs */

@@ -82,6 +82,15 @@
       "type": "page"
     },
     {
+      "path": "pages/preview/preview",
+      "type": "page",
+      "layout": "custom",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "预览"
+      }
+    },
+    {
       "path": "pages/user/user",
       "type": "page",
       "layout": "tabbar",
