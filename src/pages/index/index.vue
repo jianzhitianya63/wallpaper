@@ -12,6 +12,7 @@
 
 <script lang="ts" setup>
 import CommonTitle from '@/components/common-title.vue'
+import CustomNavBar from '@/components/custom-nav-bar.vue'
 import ThemeItem from '@/components/theme-item.vue'
 import { THEME_COLORS } from '@/style/theme-constants'
 
@@ -26,6 +27,7 @@ const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
 
 <template>
   <view>
+    <custom-nav-bar />
     <view class="w-750rpx py-30rpx">
       <swiper class="h-340rpx w-750rpx" circular indicator-dots indicator-color="#fff" indicator-active-color="#000" autoplay>
         <swiper-item v-for="(item, index) in bannerList" :key="index" class="h-100% w-100% px-30rpx">
