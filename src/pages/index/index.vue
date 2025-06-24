@@ -75,11 +75,13 @@ const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
     <view class="ml-30rpx mt-30rpx w-720rpx">
       <scroll-view scroll-x class="whitespace-nowrap">
         <view v-for="(item, index) in 8" :key="index" class="mr-15rpx inline-block h-430rpx w-200rpx last:mr-0">
-          <image
-            src="/static/images/preview1.jpg"
-            mode="aspectFill"
-            class="h-100% w-100% rounded-10rpx"
-          />
+          <navigator url="/pages/preview/preview" class="h-100% w-100%">
+            <image
+              src="/static/images/preview1.jpg"
+              mode="aspectFill"
+              class="h-100% w-100% rounded-10rpx"
+            />
+          </navigator>
         </view>
       </scroll-view>
     </view>

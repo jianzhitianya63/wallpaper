@@ -1,5 +1,5 @@
 export const SYSTEM_INFO = uni.getSystemInfoSync()
-export const getStatusBarHeight = () => SYSTEM_INFO.statusBarHeight
+export const getStatusBarHeight = () => SYSTEM_INFO.statusBarHeight || 15
 
 export function getMenuButtonBoundingClientRect() {
   const { top, height } = uni.getMenuButtonBoundingClientRect()

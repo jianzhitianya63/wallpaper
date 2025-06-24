@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { getStatusBarHeight, getTitleBarHeight } from '@/utils/system'
 
 const maskState = ref(false)
 function maskChange() {
@@ -43,6 +44,10 @@ function onChange(e: any) {
 function confirmScore() {
   console.log(userScore.value)
 }
+
+function goBack() {
+  uni.navigateBack()
+}
 </script>
 
 <template>
@@ -56,7 +61,13 @@ function confirmScore() {
 
     <!-- mask -->
     <view v-if="maskState" class="">
-      <view>图标</view>
+      <view
+        class="absolute left-30rpx w-38px center border-base rounded-full bg-black/50 backdrop-blur-lg"
+        :style="{ top: `${getStatusBarHeight()}px`, height: `${getTitleBarHeight()}px` }"
+        @click="goBack()"
+      >
+        <uni-icons type="back" size="20" color="#fff" />
+      </view>
       <view class="absolute left-0 right-0 top-10vh m-auto w-fit rounded-40rpx px-28rpx py-8rpx text-size-28rpx color-white backdrop-blur-lg">
         3 / 9
       </view>
