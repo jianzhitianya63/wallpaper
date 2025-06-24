@@ -11,6 +11,7 @@
 
 <template>
   <view>
+    <custom-nav-bar title="分类" />
     <view class="grid grid-cols-3 gap-15rpx">
       <theme-item v-for="item in 12" :key="item" />
     </view>

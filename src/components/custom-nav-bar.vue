@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import { getStatusBarHeight, getTitleBarHeight } from '@/utils/system'
+
+const props = defineProps({
+  title: {
+    type: String,
+    default: '',
+  },
+})
 </script>
 
 <template>
@@ -12,7 +19,7 @@ import { getStatusBarHeight, getTitleBarHeight } from '@/utils/system'
       <!-- titlebar -->
       <view class="h-100rpx flex items-center p-30rpx" :style="{ height: `${getTitleBarHeight()}px` }">
         <view class="text-size-40rpx text-black font-medium">
-          标题
+          {{ title }}
         </view>
         <view class="ml-30rpx h-50rpx w-220rpx flex items-center border-base rounded-60rpx bg-white/40, text-size-28rpx color-[#999]">
           <uni-icons class="ml-5rpx" type="search" color="#888" size="20" />
