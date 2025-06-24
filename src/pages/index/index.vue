@@ -11,16 +11,26 @@
 </route>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 import CommonTitle from '@/components/common-title.vue'
 import CustomNavBar from '@/components/custom-nav-bar.vue'
 import ThemeItem from '@/components/theme-item.vue'
 import { THEME_COLORS } from '@/style/theme-constants'
 
-const bannerList = [
-  '/static/images/banner1.jpg',
-  '/static/images/banner2.jpg',
-  '/static/images/banner3.jpg',
-]
+const bannerList = ref([])
+getBanner()
+async function getBanner() {
+  const res = await uni.request({
+    url: 'https://tea.qingnian8.com/api/bizhi/homeBanner',
+    header: {
+      'access-key': '215371',
+    },
+  })
+  const data = res.data as { errCode: number, data: unknown[] }
+  if (data.errCode === 0) {
+    bannerList.value = data.data
+  }
+}
 
 const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
 </script>
@@ -31,7 +41,7 @@ const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
     <view class="w-750rpx py-30rpx">
       <swiper class="h-340rpx w-750rpx" circular indicator-dots indicator-color="#fff" indicator-active-color="#000" autoplay>
         <swiper-item v-for="(item, index) in bannerList" :key="index" class="h-100% w-100% px-30rpx">
-          <image :src="item" mode="aspectFill" class="h-100% w-100% rounded-10rpx" />
+          <image :src="item.picurl" mode="aspectFill" class="h-100% w-100% rounded-10rpx" />
         </swiper-item>
       </swiper>
     </view>
