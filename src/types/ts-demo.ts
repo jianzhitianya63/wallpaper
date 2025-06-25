@@ -1,9 +1,13 @@
+// 自动导入 auto-import.d.ts 定义了全局导入, 所以不需要手动导入
+const autoImport = ref(null)
+console.log(autoImport)
+
 // 跳过所有eslint检查, 防止eslint报错
 /* eslint-disable */
 /* prettier-ignore */
 // @ts-nocheck
 
-// 强制将这个文件视为一个 ES 模块（ES Module），而不是一个全局脚本。防止全局污染
+/// ///////////////////强制将这个文件视为一个 ES 模块（ES Module），而不是一个全局脚本。防止全局污染/////////////////////
 export {}
 
 /// //////////////////如何定义变量/////////////////////
@@ -11,9 +15,9 @@ let str: string
 let num: number
 let bool: boolean
 
-const str = 'hello'
-const num = 123
-const bool = true
+str = 'hello'
+num = 123
+bool = true
 
 /// //////////////类型自动推断/////////////////////
 let d = -99
