@@ -9,11 +9,24 @@
     }
 </route>
 
+<script setup lang="ts">
+import type { MyData } from '@/types/ts-demo'
+import { ref } from 'vue'
+import { apiGetClassify } from '@/api/apis'
+
+const classifyList = ref([])
+async function getList() {
+  const res = await apiGetClassify<MyData>({ page: 1, pageSize: 80 })
+  classifyList.value = res.data
+}
+getList()
+</script>
+
 <template>
   <view>
     <custom-nav-bar title="分类" />
     <view class="grid grid-cols-3 gap-15rpx">
-      <theme-item v-for="item in 12" :key="item" />
+      <theme-item v-for="item in classifyList" :key="item._id" :item="item" />
     </view>
   </view>
 </template>

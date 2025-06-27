@@ -1,4 +1,4 @@
-export interface resData<T> { errCode: number, data: T, errMsg: string }
+export interface MyData { errCode: number, data: unknown[] }
 
 // 自动导入 auto-import.d.ts 定义了全局导入, 所以不需要手动导入
 const autoImport = ref(null)

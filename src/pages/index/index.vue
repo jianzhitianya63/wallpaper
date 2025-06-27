@@ -11,8 +11,9 @@
 </route>
 
 <script lang="ts" setup>
+import type { MyData } from '@/types/ts-demo'
 import { ref } from 'vue'
-import { apiGetBanner, apiGetDayRandom, apiGetNotice } from '@/api/apis'
+import { apiGetBanner, apiGetClassify, apiGetDayRandom, apiGetNotice } from '@/api/apis'
 import CommonTitle from '@/components/common-title.vue'
 import CustomNavBar from '@/components/custom-nav-bar.vue'
 import ThemeItem from '@/components/theme-item.vue'
@@ -21,6 +22,7 @@ import { THEME_COLORS } from '@/style/theme-constants'
 const bannerList = ref([])
 const dayRandom = ref([])
 const noticeList = ref([])
+const classifyList = ref([])
 
 async function getBanner() {
   // const res = await uni.request({
@@ -30,25 +32,29 @@ async function getBanner() {
   // if (data.errCode === 0) {
   //   bannerList.value = data.data
   // }
-  const res = await apiGetBanner()
-  const data = res as { errCode: number, data: unknown[] }
-  bannerList.value = data.data
+  const res = await apiGetBanner<MyData>()
+  bannerList.value = res.data
 }
 getBanner()
 
 async function getDayRandom() {
-  const res = await apiGetDayRandom()
-  const data = res as { errCode: number, data: unknown[] }
-  dayRandom.value = data.data
+  const res = await apiGetDayRandom<MyData>()
+  dayRandom.value = res.data
 }
 getDayRandom()
 
 async function getNotice() {
-  const res = await apiGetNotice({ select: true })
-  const data = res as { errCode: number, data: unknown[] }
-  noticeList.value = data.data
+  const res = await apiGetNotice<MyData>({ select: true })
+  noticeList.value = res.data
 }
 getNotice()
+
+async function getClassify() {
+  const res = await apiGetClassify<MyData>({ select: true, page: 1, pageSize: 8 })
+  // 只获取前8个元素
+  classifyList.value = res.data.slice(0, 8)
+}
+getClassify()
 
 const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
 </script>
@@ -127,7 +133,7 @@ const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
     </common-title>
 
     <view class="grid grid-cols-3 mt-30rpx gap-15rpx gap-15rpx px-30rpx pb-50rpx">
-      <theme-item v-for="(item, index) in 8" :key=" index" />
+      <theme-item v-for="item in classifyList" :key="item._id" :item="item" />
       <theme-item is-more />
     </view>
   </view>
