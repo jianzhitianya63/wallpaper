@@ -44,13 +44,13 @@ async function getDayRandom() {
 getDayRandom()
 
 async function getNotice() {
-  const res = await apiGetNotice<MyData>({ select: true })
+  const res = await apiGetNotice<MyData>()
   noticeList.value = res.data
 }
 getNotice()
 
 async function getClassify() {
-  const res = await apiGetClassify<MyData>({ select: true, page: 1, pageSize: 8 })
+  const res = await apiGetClassify<MyData>()
   // 只获取前8个元素
   classifyList.value = res.data.slice(0, 8)
 }

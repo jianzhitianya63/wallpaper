@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { MyData } from '@/types/ts-demo'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { apiGetClassifyList } from '@/api/apis'
+import CustomRefresher from '@/components/custom-refresher/custom-refresher.vue'
 
 // uniapp提供的自动Props注入特性, 正常应该使用onload钩子来接收页面参数, 这个是通用逻辑
 // const props = defineProps({
@@ -15,10 +16,15 @@ import { apiGetClassifyList } from '@/api/apis'
 //   },
 // })
 const classifyList = ref([])
+const classListParams = reactive({
+  classid: '',
+  page: 1,
+  pageSize: 12,
+})
 
-async function getClassifyList(classid: string) {
-  const res = await apiGetClassifyList<MyData>({ classid })
-  classifyList.value = res.data
+async function getClassifyList() {
+  const res = await apiGetClassifyList<MyData>(classListParams)
+  classifyList.value = [...classifyList.value, ...res.data]
 }
 
 onLoad((options) => {
@@ -34,7 +40,7 @@ onLoad((options) => {
   }
 
   if (options.classid) {
-    getClassifyList(options.classid)
+    classListParams.classid = options.classid
   }
   else {
     uni.showToast({
@@ -42,22 +48,40 @@ onLoad((options) => {
       icon: 'none',
     })
   }
+  // getClassifyList()
 })
+
+// 触底刷新
+onReachBottom(() => {
+  classListParams.page++
+  getClassifyList()
+})
+
+const paging = ref()
+async function queryList(page: number, pageSize: number) {
+  const res = await apiGetClassifyList<MyData>({ classid: classListParams.classid, page, pageSize })
+  paging.value.complete(res.data)
+}
 </script>
 
 <template>
-  <!-- classlist -->
-  <view>
-    <!-- content -->
-    <view class="grid grid-cols-3 gap-5rpx p-5rpx">
-      <!-- item -->
-      <navigator v-for="item in classifyList" :key="item._id" url="/pages/preview/preview" class="h-440rpx">
-        <image
-          :src="item.smallPicurl"
-          mode="aspectFill"
-          class="block h-100% w-100%"
-        />
-      </navigator>
+  <z-paging ref="paging" v-model="classifyList" @query="queryList">
+    <template #refresher="{ refresherStatus }">
+      <custom-refresher :status="refresherStatus" />
+    </template>
+    <!-- classlist -->
+    <view>
+      <!-- content -->
+      <view class="grid grid-cols-3 gap-5rpx p-5rpx">
+        <!-- item -->
+        <navigator v-for="item in classifyList" :key="item._id" url="/pages/preview/preview" class="h-440rpx">
+          <image
+            :src="item.smallPicurl"
+            mode="aspectFill"
+            class="block h-100% w-100%"
+          />
+        </navigator>
+      </view>
     </view>
-  </view>
+  </z-paging>
 </template>

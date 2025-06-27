@@ -10,14 +10,14 @@ export function apiGetDayRandom<T>() {
   return request<T>({ url: `${baseUrl}/randomWall`, method: 'POST' })
 }
 
-export function apiGetNotice<T>(data: { select: boolean }) {
-  return request<T>({ url: `${baseUrl}/wallNewsList`, method: 'POST', data })
+export function apiGetNotice<T>() {
+  return request<T>({ url: `${baseUrl}/wallNewsList`, method: 'POST' })
 }
 
-export function apiGetClassify<T>(data: { page: number, pageSize: number }) {
-  return request<T>({ url: `${baseUrl}/classify`, method: 'POST', data })
+export function apiGetClassify<T>() {
+  return request<T>({ url: `${baseUrl}/classify`, method: 'POST' })
 }
 
-export function apiGetClassifyList<T>(data: { classid: string }) {
+export function apiGetClassifyList<T>(data: { classid: string, page: number, pageSize: number }) {
   return request<T>({ url: `${baseUrl}/wallList`, data })
 }

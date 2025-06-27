@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     CommonTitle: typeof import('./../components/common-title.vue')['default']
     CustomNavBar: typeof import('./../components/custom-nav-bar.vue')['default']
+    CustomRefresher: typeof import('./../components/custom-refresher/custom-refresher.vue')['default']
     FgNavbar: typeof import('./../components/fg-navbar/fg-navbar.vue')['default']
     ThemeItem: typeof import('./../components/theme-item.vue')['default']
   }
