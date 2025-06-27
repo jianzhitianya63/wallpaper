@@ -12,25 +12,43 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { apiGetBanner, apiGetDayRandom, apiGetNotice } from '@/api/apis'
 import CommonTitle from '@/components/common-title.vue'
 import CustomNavBar from '@/components/custom-nav-bar.vue'
 import ThemeItem from '@/components/theme-item.vue'
 import { THEME_COLORS } from '@/style/theme-constants'
 
 const bannerList = ref([])
-getBanner()
+const dayRandom = ref([])
+const noticeList = ref([])
+
 async function getBanner() {
-  const res = await uni.request({
-    url: 'https://tea.qingnian8.com/api/bizhi/homeBanner',
-    header: {
-      'access-key': '215371',
-    },
-  })
-  const data = res.data as { errCode: number, data: unknown[] }
-  if (data.errCode === 0) {
-    bannerList.value = data.data
-  }
+  // const res = await uni.request({
+  //   url: 'https://tea.qingnian8.com/api/bizhi/homeBanner',
+  // })
+  // const data = res.data as { errCode: number, data: unknown[] }
+  // if (data.errCode === 0) {
+  //   bannerList.value = data.data
+  // }
+  const res = await apiGetBanner()
+  const data = res as { errCode: number, data: unknown[] }
+  bannerList.value = data.data
 }
+getBanner()
+
+async function getDayRandom() {
+  const res = await apiGetDayRandom()
+  const data = res as { errCode: number, data: unknown[] }
+  dayRandom.value = data.data
+}
+getDayRandom()
+
+async function getNotice() {
+  const res = await apiGetNotice({ select: true })
+  const data = res as { errCode: number, data: unknown[] }
+  noticeList.value = data.data
+}
+getNotice()
 
 const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
 </script>
@@ -57,8 +75,8 @@ const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
 
     <view class="flex-1">
       <swiper :interval="1500" :duration="300" autoplay circular vertical class="h-100%">
-        <swiper-item v-for="(item, index) in 4" :key="index" class="h-100% overflow-hidden text-ellipsis whitespace-nowrap text-30rpx">
-          文字内容文字内容文字内容文字内容文字内容文字内容文字内容文字内容文字内容
+        <swiper-item v-for="item in noticeList" :key="item._id" class="h-100% overflow-hidden text-ellipsis whitespace-nowrap text-30rpx">
+          {{ item.title }}
         </swiper-item>
       </swiper>
     </view>
@@ -84,10 +102,10 @@ const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
     </common-title>
     <view class="ml-30rpx mt-30rpx w-720rpx">
       <scroll-view scroll-x class="whitespace-nowrap">
-        <view v-for="(item, index) in 8" :key="index" class="mr-15rpx inline-block h-430rpx w-200rpx last:mr-0">
+        <view v-for="(item, index) in dayRandom" :key="index" class="mr-15rpx inline-block h-430rpx w-200rpx last:mr-0">
           <navigator url="/pages/preview/preview" class="h-100% w-100%">
             <image
-              src="/static/images/preview1.jpg"
+              :src="item.smallPicurl"
               mode="aspectFill"
               class="h-100% w-100% rounded-10rpx"
             />
