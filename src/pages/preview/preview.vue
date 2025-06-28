@@ -47,8 +47,12 @@ function closeScore() {
 const userScore = ref(0)
 
 async function confirmScore() {
+  uni.showLoading({
+    title: '加载中...',
+  })
   const { _id: wallId, classid } = currentInfo.value
   await apiConfirmScore({ classid, wallId, userScore: userScore.value.toString() })
+  uni.hideLoading()
   uni.showToast({
     title: '评分成功',
     icon: 'success',
@@ -256,7 +260,7 @@ function pushReadIndexList(index: number) {
           <view class="flex items-center justify-between">
             <view />
             <view class="text-size=26rpx text-color2">
-              壁纸评分
+              {{ isScore ? '已经评分过啦~~~' : '壁纸评分' }}
             </view>
             <!-- close -->
             <view class="p-10rpx" @click="closeScore()">
@@ -273,7 +277,7 @@ function pushReadIndexList(index: number) {
           </view>
 
           <view class="center">
-            <button type="default" size="mini" plain :disabled="userScore === 0 || isScore" @click="confirmScore()">
+            <button v-loading-click="confirmScore" type="default" size="mini" plain :disabled="userScore === 0 || isScore">
               确认评分
             </button>
           </view>

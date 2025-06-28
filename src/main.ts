@@ -1,5 +1,6 @@
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import { createSSRApp } from 'vue'
+import { setupLoadingClickDirective } from '@/components/directives/loadingClick'
 import App from './App.vue'
 import { prototypeInterceptor, requestInterceptor, routeInterceptor } from './interceptors'
 
@@ -14,7 +15,7 @@ export function createApp() {
   app.use(requestInterceptor)
   app.use(prototypeInterceptor)
   app.use(VueQueryPlugin)
-
+  setupLoadingClickDirective(app)
   return {
     app,
   }
