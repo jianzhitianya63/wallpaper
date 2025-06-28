@@ -11,9 +11,17 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { apiConfirmScore } from '@/api/apis'
 import { getStatusBarHeight, getTitleBarHeight } from '@/utils/system'
 
 const maskState = ref(false)
+let storageClassList = uni.getStorageSync('classifyList') || []
+const readIndexList = ref([])
+const currentId = ref(null)
+const currentIndex = ref(0)
+const currentInfo = ref(null)
+const isScore = ref(false)
+
 function maskChange() {
   maskState.value = !maskState.value
 }
@@ -36,20 +44,32 @@ function closeScore() {
   scorePopup.value.close()
 }
 
-const userScore = ref(5)
-function onChange(e: any) {
-  userScore.value = e.value
-}
+const userScore = ref(0)
 
-function confirmScore() {
-  console.log(userScore.value)
+async function confirmScore() {
+  const { _id: wallId, classid } = currentInfo.value
+  await apiConfirmScore({ classid, wallId, userScore: userScore.value.toString() })
+  uni.showToast({
+    title: '评分成功',
+    icon: 'success',
+  })
+  // 刷新storageClassList中的数据
+  storageClassList.forEach((item: any) => {
+    if (item._id === currentInfo.value._id) {
+      item.userScore = userScore.value
+    }
+  })
+  uni.setStorageSync('classifyList', storageClassList)
+  // 不可用评分
+  isScore.value = true
+  // 刷新评分
+  currentInfo.value.score = userScore.value
+  closeScore()
 }
 
 function goBack() {
   uni.navigateBack()
 }
-
-let storageClassList = uni.getStorageSync('classifyList') || []
 
 storageClassList = storageClassList.map((item: any, index: number) => {
   return {
@@ -57,21 +77,34 @@ storageClassList = storageClassList.map((item: any, index: number) => {
     picurl: item.smallPicurl.replace('_small.webp', '.jpg'),
   }
 })
-const readIndexList = ref([])
-const currentId = ref(null)
-const currentIndex = ref(0)
-const currentInfo = ref(null)
+
 onLoad((options) => {
   currentId.value = options.currentId
   currentIndex.value = storageClassList.findIndex((item: any) => item._id === currentId.value)
   pushReadIndexList(currentIndex.value)
   currentInfo.value = storageClassList[currentIndex.value]
+  if (currentInfo.value.userScore) {
+    userScore.value = currentInfo.value.userScore
+    isScore.value = true
+  }
+  else {
+    userScore.value = 0
+    isScore.value = false
+  }
 })
 
 function swiperChange(e: any) {
   currentIndex.value = e.detail.current
   pushReadIndexList(currentIndex.value)
   currentInfo.value = storageClassList[currentIndex.value]
+  if (currentInfo.value.userScore) {
+    userScore.value = currentInfo.value.userScore
+    isScore.value = true
+  }
+  else {
+    userScore.value = 0
+    isScore.value = false
+  }
 }
 
 function pushReadIndexList(index: number) {
@@ -120,7 +153,9 @@ function pushReadIndexList(index: number) {
             @click="clickScore()"
           >
             <uni-icons type="star" size="23" />
-            <view>评分</view>
+            <view>
+              {{ currentInfo.score }}分
+            </view>
           </view>
         </view>
         <view>
@@ -231,14 +266,14 @@ function pushReadIndexList(index: number) {
 
           <!-- content -->
           <view class="center py-30rpx">
-            <uni-rate v-model="userScore" allow-half @change="onChange" />
+            <uni-rate v-model="userScore" allow-half :disabled="isScore" />
             <text class="w-80rpx pl-10rpx text-right color-[#FFCA3E] leading-1">
               {{ userScore }}分
             </text>
           </view>
 
           <view class="center">
-            <button type="default" size="mini" plain :disabled="userScore === 0" @click="confirmScore()">
+            <button type="default" size="mini" plain :disabled="userScore === 0 || isScore" @click="confirmScore()">
               确认评分
             </button>
           </view>

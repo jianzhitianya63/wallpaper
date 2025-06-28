@@ -21,3 +21,7 @@ export function apiGetClassify<T>() {
 export function apiGetClassifyList<T>(data: { classid: string, pageNum: number, pageSize: number }) {
   return request<T>({ url: `${baseUrl}/wallList`, data })
 }
+
+export function apiConfirmScore<T>(data: { classid: string, wallId: string, userScore: string }) {
+  return request<T>({ url: `${baseUrl}/setupScore`, data })
+}
