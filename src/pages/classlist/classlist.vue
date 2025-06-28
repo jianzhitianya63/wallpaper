@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { MyData } from '@/types/ts-demo'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { apiGetClassifyList } from '@/api/apis'
 import CustomRefresher from '@/components/custom-refresher/custom-refresher.vue'
 
@@ -16,16 +16,7 @@ import CustomRefresher from '@/components/custom-refresher/custom-refresher.vue'
 //   },
 // })
 const classifyList = ref([])
-const classListParams = reactive({
-  classid: '',
-  page: 1,
-  pageSize: 12,
-})
-
-async function getClassifyList() {
-  const res = await apiGetClassifyList<MyData>(classListParams)
-  classifyList.value = [...classifyList.value, ...res.data]
-}
+const classid = ref('')
 
 onLoad((options) => {
   if (options.title) {
@@ -40,7 +31,7 @@ onLoad((options) => {
   }
 
   if (options.classid) {
-    classListParams.classid = options.classid
+    classid.value = options.classid
   }
   else {
     uni.showToast({
@@ -48,26 +39,24 @@ onLoad((options) => {
       icon: 'none',
     })
   }
-  // getClassifyList()
-})
-
-// 触底刷新
-onReachBottom(() => {
-  classListParams.page++
-  getClassifyList()
 })
 
 const paging = ref()
-async function queryList(page: number, pageSize: number) {
-  const res = await apiGetClassifyList<MyData>({ classid: classListParams.classid, page, pageSize })
+async function queryList(pageNum: number, pageSize: number) {
+  const res = await apiGetClassifyList<MyData>({ classid: classid.value, pageNum, pageSize })
   paging.value.complete(res.data)
 }
 </script>
 
 <template>
-  <z-paging ref="paging" v-model="classifyList" @query="queryList">
+  <z-paging ref="paging" v-model="classifyList" loading-more-no-more-text="我也是有底线的！" @query="queryList">
     <template #refresher="{ refresherStatus }">
       <custom-refresher :status="refresherStatus" />
+    </template>
+    <template #empty>
+      <view class="h-full flex items-center justify-center">
+        没有数据了喔
+      </view>
     </template>
     <!-- classlist -->
     <view>

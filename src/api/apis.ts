@@ -18,6 +18,6 @@ export function apiGetClassify<T>() {
   return request<T>({ url: `${baseUrl}/classify`, method: 'POST' })
 }
 
-export function apiGetClassifyList<T>(data: { classid: string, page: number, pageSize: number }) {
+export function apiGetClassifyList<T>(data: { classid: string, pageNum: number, pageSize: number }) {
   return request<T>({ url: `${baseUrl}/wallList`, data })
 }
