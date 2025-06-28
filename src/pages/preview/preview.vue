@@ -57,16 +57,22 @@ storageClassList = storageClassList.map((item: any, index: number) => {
     picurl: item.smallPicurl.replace('_small.webp', '.jpg'),
   }
 })
-
+const readIndexList = ref([])
 const currentId = ref(null)
 const currentIndex = ref(0)
 onLoad((options) => {
   currentId.value = options.currentId
   currentIndex.value = storageClassList.findIndex((item: any) => item._id === currentId.value)
+  pushReadIndexList(currentIndex.value)
 })
 
 function swiperChange(e: any) {
   currentIndex.value = e.detail.current
+  pushReadIndexList(currentIndex.value)
+}
+
+function pushReadIndexList(index: number) {
+  readIndexList.value.push(index - 1, index, index + 1)
 }
 </script>
 
@@ -74,8 +80,8 @@ function swiperChange(e: any) {
   <!-- preview -->
   <view class="relative h-100vh w-100%">
     <swiper class="h-100% w-100%" circular :current="currentIndex" @change="swiperChange">
-      <swiper-item v-for="item in storageClassList" :key="item._id" class="h-100% w-100%">
-        <image :src="item.picurl" mode="aspectFill" class="h-100% w-100%" @click="maskChange()" />
+      <swiper-item v-for="(item, index) in storageClassList" :key="item._id" class="h-100% w-100%">
+        <image v-if="readIndexList.includes(index)" :src="item.picurl" mode="aspectFill" class="h-100% w-100%" @click="maskChange()" />
       </swiper-item>
     </swiper>
 
