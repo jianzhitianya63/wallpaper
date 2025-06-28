@@ -116,6 +116,10 @@ function pushReadIndexList(index: number) {
 }
 
 function download() {
+  uni.showLoading({
+    title: '下载中...',
+    mask: true,
+  })
   uni.getImageInfo({
     src: currentInfo.value.picurl,
     success(image) {
@@ -126,6 +130,54 @@ function download() {
             title: '保存成功',
             icon: 'success',
           })
+        },
+        fail(error) {
+          console.log(error.errMsg)
+          if (error.errMsg === 'saveImageToPhotosAlbum:fail cancel') {
+            uni.showToast({
+              title: '取消保存',
+              icon: 'none',
+            })
+            return
+          }
+          uni.showModal({
+            title: '提示',
+            content: '需要授权保存相册',
+            success: (res) => {
+              if (res.confirm) {
+                uni.openSetting({
+                  success: (setting) => {
+                    if (setting.authSetting['scope.writePhotosAlbum']) {
+                      uni.saveImageToPhotosAlbum({
+                        filePath: image.path,
+                        success() {
+                          uni.showToast({
+                            title: '保存成功',
+                            icon: 'success',
+                          })
+                        },
+                        fail() {
+                          uni.showToast({
+                            title: '获取权限失败',
+                            icon: 'error',
+                          })
+                        },
+                      })
+                    }
+                  },
+                })
+              }
+            },
+            fail() {
+              uni.showToast({
+                title: '获取权限失败',
+                icon: 'error',
+              })
+            },
+          })
+        },
+        complete() {
+          uni.hideLoading()
         },
       })
     },
