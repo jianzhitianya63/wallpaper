@@ -114,6 +114,23 @@ function swiperChange(e: any) {
 function pushReadIndexList(index: number) {
   readIndexList.value.push(index - 1, index, index + 1)
 }
+
+function download() {
+  uni.getImageInfo({
+    src: currentInfo.value.picurl,
+    success(image) {
+      uni.saveImageToPhotosAlbum({
+        filePath: image.path,
+        success() {
+          uni.showToast({
+            title: '保存成功',
+            icon: 'success',
+          })
+        },
+      })
+    },
+  })
+}
 </script>
 
 <template>
@@ -163,7 +180,10 @@ function pushReadIndexList(index: number) {
           </view>
         </view>
         <view>
-          <view class="flex flex-col items-center justify-center px-12rpx py-2rpx text-size-28rpx text-color2">
+          <view
+            class="flex flex-col items-center justify-center px-12rpx py-2rpx text-size-28rpx text-color2"
+            @click="download()"
+          >
             <uni-icons type="download" size="23" />
             <view>下载</view>
           </view>
@@ -277,7 +297,7 @@ function pushReadIndexList(index: number) {
           </view>
 
           <view class="center">
-            <button v-loading-click="confirmScore" type="default" size="mini" plain :disabled="userScore === 0 || isScore">
+            <button type="default" size="mini" plain :disabled="userScore === 0 || isScore" @click="confirmScore">
               确认评分
             </button>
           </view>
