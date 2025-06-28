@@ -60,15 +60,18 @@ storageClassList = storageClassList.map((item: any, index: number) => {
 const readIndexList = ref([])
 const currentId = ref(null)
 const currentIndex = ref(0)
+const currentInfo = ref(null)
 onLoad((options) => {
   currentId.value = options.currentId
   currentIndex.value = storageClassList.findIndex((item: any) => item._id === currentId.value)
   pushReadIndexList(currentIndex.value)
+  currentInfo.value = storageClassList[currentIndex.value]
 })
 
 function swiperChange(e: any) {
   currentIndex.value = e.detail.current
   pushReadIndexList(currentIndex.value)
+  currentInfo.value = storageClassList[currentIndex.value]
 }
 
 function pushReadIndexList(index: number) {
@@ -151,18 +154,7 @@ function pushReadIndexList(index: number) {
                   壁纸ID:
                 </view>
                 <view selectable class="flex-1">
-                  1234567890
-                </view>
-              </view>
-            </view>
-
-            <view>
-              <view class="flex py-16rpx text-size-32rpx leading-7">
-                <view class="w-140rpx text-left text-color3">
-                  分类:
-                </view>
-                <view selectable class="flex-1 text-primary">
-                  明星美女
+                  {{ currentInfo._id }}
                 </view>
               </view>
             </view>
@@ -173,7 +165,7 @@ function pushReadIndexList(index: number) {
                   发布者:
                 </view>
                 <view selectable class="flex-1">
-                  壁纸发布者
+                  {{ currentInfo.nickname }}
                 </view>
               </view>
             </view>
@@ -184,9 +176,9 @@ function pushReadIndexList(index: number) {
                   评分:
                 </view>
                 <view selectable class="flex flex-1 items-center">
-                  <uni-rate readonly touchable :value="3.5" size="16" />
+                  <uni-rate readonly touchable :value="currentInfo.score" size="16" />
                   <view class="pl-10rpx text-size-26rpx text-color2">
-                    5分
+                    {{ currentInfo.score }}分
                   </view>
                 </view>
               </view>
@@ -198,9 +190,7 @@ function pushReadIndexList(index: number) {
                   摘要:
                 </view>
                 <view selectable class="flex-1">
-                  摘要内容摘要内容摘要内容摘要内容
-                  摘要内容摘要内容摘要内容摘要内容摘要内容摘要内容
-                  摘要内容摘要内容摘要内容摘要内容
+                  {{ currentInfo.description }}
                 </view>
               </view>
             </view>
@@ -211,20 +201,8 @@ function pushReadIndexList(index: number) {
                   标签:
                 </view>
                 <view selectable class="flex flex-wrap">
-                  <view class="mb-10rpx mr-10rpx border-base rounded-40rpx px-10rpx py-30rpx text-size-22rpx color-primary leading-1">
-                    标签名
-                  </view>
-                  <view class="mb-10rpx mr-10rpx border-base rounded-40rpx px-10rpx py-30rpx text-size-22rpx color-primary leading-1">
-                    标签名
-                  </view>
-                  <view class="mb-10rpx mr-10rpx border-base rounded-40rpx px-10rpx py-30rpx text-size-22rpx color-primary leading-1">
-                    标签名
-                  </view>
-                  <view class="mb-10rpx mr-10rpx border-base rounded-40rpx px-10rpx py-30rpx text-size-22rpx color-primary leading-1">
-                    标签名
-                  </view>
-                  <view class="mb-10rpx mr-10rpx border-base rounded-40rpx px-10rpx py-30rpx text-size-22rpx color-primary leading-1">
-                    标签名
+                  <view v-for="tab in currentInfo.tabs" :key="tab" class="mb-10rpx mr-10rpx border-base rounded-40rpx px-10rpx py-30rpx text-size-22rpx color-primary leading-1">
+                    {{ tab }}
                   </view>
                 </view>
               </view>
