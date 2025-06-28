@@ -48,14 +48,34 @@ function confirmScore() {
 function goBack() {
   uni.navigateBack()
 }
+
+let storageClassList = uni.getStorageSync('classifyList') || []
+
+storageClassList = storageClassList.map((item: any, index: number) => {
+  return {
+    ...item,
+    picurl: item.smallPicurl.replace('_small.webp', '.jpg'),
+  }
+})
+
+const currentId = ref(null)
+const currentIndex = ref(0)
+onLoad((options) => {
+  currentId.value = options.currentId
+  currentIndex.value = storageClassList.findIndex((item: any) => item._id === currentId.value)
+})
+
+function swiperChange(e: any) {
+  currentIndex.value = e.detail.current
+}
 </script>
 
 <template>
   <!-- preview -->
   <view class="relative h-100vh w-100%">
-    <swiper class="h-100% w-100%" circular>
-      <swiper-item v-for="item in 5" :key="item" class="h-100% w-100%">
-        <image src="../../static/images/preview1.jpg" mode="aspectFill" class="h-100% w-100%" @click="maskChange()" />
+    <swiper class="h-100% w-100%" circular :current="currentIndex" @change="swiperChange">
+      <swiper-item v-for="item in storageClassList" :key="item._id" class="h-100% w-100%">
+        <image :src="item.picurl" mode="aspectFill" class="h-100% w-100%" @click="maskChange()" />
       </swiper-item>
     </swiper>
 
@@ -69,7 +89,7 @@ function goBack() {
         <uni-icons type="back" size="20" color="#fff" />
       </view>
       <view class="absolute left-0 right-0 top-10vh m-auto w-fit rounded-40rpx px-28rpx py-8rpx text-size-28rpx color-white backdrop-blur-lg">
-        3 / 9
+        {{ currentIndex + 1 }} / {{ storageClassList.length }}
       </view>
       <view class="absolute left-0 right-0 top-[calc(10vh+80rpx)] m-auto w-fit text-size-140rpx text-white font-light shadow">
         <uni-dateformat :date="Date.now()" format="hh:mm" />

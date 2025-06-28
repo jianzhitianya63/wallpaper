@@ -1,6 +1,6 @@
 export function request<T>(config: { url: string, method?: 'GET' | 'POST', header?: Record<string, string>, data?: {} }): Promise<T> {
   const { url, method = 'GET', header = {}, data = {} } = config
-  header['access-key'] = '866591'
+  header['access-key'] = '617792'
   return new Promise((resolve, reject) => {
     return uni.request({
       url,
