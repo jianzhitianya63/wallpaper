@@ -11,15 +11,28 @@
 
 <script setup lang="ts">
 import type { MyData } from '@/types/ts-demo'
+import { onShareAppMessage } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import { apiGetClassify } from '@/api/apis'
 
 const classifyList = ref([])
 async function getList() {
-  const res = await apiGetClassify<MyData>({ page: 1, pageSize: 80 })
+  const res = await apiGetClassify<MyData>()
   classifyList.value = res.data
 }
 getList()
+
+onShareAppMessage((res) => {
+  if (res.from === 'button') {
+    // 来自页面内分享按钮处理逻辑
+    console.log(res.target)
+  }
+  return {
+    title: '每日壁纸分类',
+    path: '/pages/classify/classify',
+    imageUrl: classifyList.value[0].picurl,
+  }
+})
 </script>
 
 <template>

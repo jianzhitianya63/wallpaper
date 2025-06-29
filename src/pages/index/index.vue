@@ -12,6 +12,7 @@
 
 <script lang="ts" setup>
 import type { MyData } from '@/types/ts-demo'
+import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 import { apiGetBanner, apiGetClassify, apiGetDayRandom, apiGetNotice } from '@/api/apis'
 import CommonTitle from '@/components/common-title.vue'
@@ -57,6 +58,28 @@ async function getClassify() {
 getClassify()
 
 const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
+
+// 显示分享按钮
+onShareAppMessage((res) => {
+  if (res.from === 'button') {
+    // 来自页面内分享按钮处理逻辑
+    console.log(res.target)
+  }
+  return {
+    title: '每日壁纸分享',
+    path: '/pages/index/index',
+    imageUrl: bannerList.value[0].picurl,
+  }
+})
+
+// 分享到朋友圈(未认证, 暂不支持分享到朋友圈)
+onShareTimeline(() => {
+  return {
+    title: '自定义分享标题',
+    path: '/pages/index/index',
+    imageUrl: bannerList.value[0].picurl,
+  }
+})
 </script>
 
 <template>

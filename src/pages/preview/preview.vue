@@ -10,8 +10,10 @@
 </route>
 
 <script setup lang="ts">
+import type { MyData } from '@/types/ts-demo'
+import { onShareAppMessage } from '@dcloudio/uni-app'
 import { ref } from 'vue'
-import { apiConfirmScore } from '@/api/apis'
+import { apiConfirmScore, apiGetWallInfo } from '@/api/apis'
 import { getStatusBarHeight, getTitleBarHeight } from '@/utils/system'
 
 const maskState = ref(false)
@@ -21,6 +23,7 @@ const currentId = ref(null)
 const currentIndex = ref(0)
 const currentInfo = ref(null)
 const isScore = ref(false)
+const type = ref('')
 
 function maskChange() {
   maskState.value = !maskState.value
@@ -72,7 +75,14 @@ async function confirmScore() {
 }
 
 function goBack() {
-  uni.navigateBack()
+  if (type.value === 'share') {
+    uni.navigateTo({
+      url: `/pages/index/index`,
+    })
+  }
+  else {
+    uni.navigateBack()
+  }
 }
 
 storageClassList = storageClassList.map((item: any, index: number) => {
@@ -82,12 +92,23 @@ storageClassList = storageClassList.map((item: any, index: number) => {
   }
 })
 
-onLoad((options) => {
+onLoad(async (options) => {
   currentId.value = options.currentId
+  if (options.type === 'share') {
+    type.value = 'share'
+    const res = await apiGetWallInfo<MyData>({ id: currentId.value })
+    storageClassList = res.data.map((item: any, index: number) => {
+      return {
+        ...item,
+        picurl: item.smallPicurl.replace('_small.webp', '.jpg'),
+      }
+    })
+    console.log('storageClassList', storageClassList)
+  }
   currentIndex.value = storageClassList.findIndex((item: any) => item._id === currentId.value)
   pushReadIndexList(currentIndex.value)
   currentInfo.value = storageClassList[currentIndex.value]
-  if (currentInfo.value.userScore) {
+  if (currentInfo.value && currentInfo.value.userScore) {
     userScore.value = currentInfo.value.userScore
     isScore.value = true
   }
@@ -116,6 +137,13 @@ function pushReadIndexList(index: number) {
 }
 
 function download() {
+  // #ifdef H5
+  uni.showToast({
+    title: 'H5不支持下载',
+    icon: 'none',
+  })
+  // #endif
+  // #ifndef H5
   uni.showLoading({
     title: '下载中...',
     mask: true,
@@ -182,7 +210,20 @@ function download() {
       })
     },
   })
+  // #endif
 }
+
+onShareAppMessage((res) => {
+  if (res.from === 'button') {
+    // 来自页面内分享按钮处理逻辑
+    console.log(res.target)
+  }
+  return {
+    title: '每日壁纸预览',
+    path: `/pages/preview/preview?type=share&currentId=${currentId.value}`,
+    imageUrl: currentInfo.value.picurl,
+  }
+})
 </script>
 
 <template>

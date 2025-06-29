@@ -17,11 +17,12 @@ import CustomRefresher from '@/components/custom-refresher/custom-refresher.vue'
 // })
 const classifyList = ref([])
 const classid = ref('')
-
+const title = ref('')
 onLoad((options) => {
   if (options.title) {
+    title.value = options.title
     uni.setNavigationBarTitle({
-      title: options.title,
+      title: title.value,
     })
   }
   else {
@@ -50,6 +51,18 @@ async function queryList(pageNum: number, pageSize: number) {
 function listChange(list: any) {
   uni.setStorageSync('classifyList', list)
 }
+
+onShareAppMessage((res) => {
+  if (res.from === 'button') {
+    // 来自页面内分享按钮处理逻辑
+    console.log(res.target)
+  }
+  return {
+    title: '每日壁纸分类列表',
+    path: `/pages/classlist/classlist?title=${title.value}&classid=${classid.value}`,
+    imageUrl: classifyList.value[0].picurl,
+  }
+})
 </script>
 
 <template>
