@@ -17,16 +17,16 @@ const props = defineProps({
       <!-- statusbar -->
       <view :style="{ height: `${getStatusBarHeight()}px` }" />
       <!-- titlebar -->
-      <view class="h-100rpx flex items-center p-30rpx" :style="{ height: `${getTitleBarHeight()}px` }">
+      <view class="h-100rpx flex items-center p-30rpx" :style="{ height: `${getTitleBarHeight()}px` }" @click="handleSearch">
         <view class="text-size-40rpx text-black font-medium">
           {{ title }}
         </view>
-        <view class="ml-30rpx h-50rpx w-220rpx flex items-center border-base rounded-60rpx bg-white/40, text-size-28rpx color-[#999]">
+        <navigator url="/pages/search/search" class="ml-30rpx h-50rpx w-220rpx flex items-center border-base rounded-60rpx bg-white/40, text-size-28rpx color-[#999]">
           <uni-icons class="ml-5rpx" type="search" color="#888" size="20" />
           <text class="pl-10rpx">
             搜索
           </text>
-        </view>
+        </navigator>
       </view>
     </view>
 
