@@ -11,6 +11,7 @@
 
 <script setup>
 import { THEME_COLORS } from '@/style/theme-constants'
+import { getStatusBarHeight } from '@/utils/system'
 
 const themeColors = ref(THEME_COLORS['--uno-brand-primary'])
 
@@ -24,6 +25,7 @@ function clickContact() {
 <template>
   <!-- 布局 -->
   <!-- 用户信息 -->
+  <view :style="{ height: `${getStatusBarHeight()}px` }" />
   <view class="flex flex-col items-center justify-center py-50rpx">
     <!-- 用户头像 -->
     <view class="h-160rpx w-160rpx overflow-hidden rounded-full">
@@ -40,8 +42,7 @@ function clickContact() {
   <view class="mx-auto my-50rpx w-690rpx border border-#000 rounded-20rpx shadow-xl">
     <!-- list -->
     <view class="">
-      <!-- row -->
-      <navigator url="/pages/classlist/classlist" class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
+      <view class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
         <!-- left -->
         <view class="flex items-center justify-center">
           <uni-icons type="download-filled" size="30" :color="themeColors" />
@@ -56,14 +57,14 @@ function clickContact() {
           </view>
           <uni-icons type="right" size="15" color="#aaa" />
         </view>
-      </navigator>
+      </view>
 
-      <navigator url="/pages/classlist/classlist" class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
+      <view class="h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
         <!-- left -->
         <view class="flex items-center justify-center">
           <uni-icons type="download-filled" size="30" :color="themeColors" />
           <view class="pl-20rpx text-slate-500">
-            我的评分
+            我的下载
           </view>
         </view>
         <!-- right -->
@@ -73,7 +74,7 @@ function clickContact() {
           </view>
           <uni-icons type="right" size="15" color="#aaa" />
         </view>
-      </navigator>
+      </view>
 
       <view class="relative h-100rpx flex items-center justify-between border border-#000 bg-white px-30rpx">
         <!-- left -->
