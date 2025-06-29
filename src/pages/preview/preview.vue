@@ -283,7 +283,7 @@ onShareAppMessage((res) => {
           </view>
         </view>
       </view>
-      <uni-popup ref="infoPopup" type="bottom">
+      <uni-popup ref="infoPopup" background-color="#fff" type="bottom">
         <!-- infoPopup -->
         <view class="rounded-t-lg bg-white p-30rpx">
           <!-- popHeader -->
