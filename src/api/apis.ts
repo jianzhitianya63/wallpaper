@@ -29,3 +29,7 @@ export function apiConfirmScore<T>(data: { classid: string, wallId: string, user
 export function apiGetWallInfo<T>(data: { id: string }) {
   return request<T>({ url: `${baseUrl}/detailWall`, data })
 }
+
+export function apiGetSearch<T>(data: { keyword: string, pageNum: number, pageSize: number }) {
+  return request<T>({ url: `${baseUrl}/searchWall`, data })
+}

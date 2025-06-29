@@ -91,6 +91,14 @@
       }
     },
     {
+      "path": "pages/search/search",
+      "type": "page",
+      "layout": "custom",
+      "style": {
+        "navigationBarTitleText": "搜索"
+      }
+    },
+    {
       "path": "pages/user/user",
       "type": "page",
       "layout": "tabbar",
