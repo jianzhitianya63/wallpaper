@@ -63,6 +63,11 @@ onShareAppMessage((res) => {
     imageUrl: classifyList.value[0].picurl,
   }
 })
+
+// 清除缓存
+onUnload(() => {
+  uni.removeStorageSync('classifyList')
+})
 </script>
 
 <template>

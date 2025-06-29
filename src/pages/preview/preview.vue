@@ -76,7 +76,7 @@ async function confirmScore() {
 
 function goBack() {
   if (type.value === 'share') {
-    uni.navigateTo({
+    uni.reLaunch({
       url: `/pages/index/index`,
     })
   }
@@ -94,6 +94,7 @@ storageClassList = storageClassList.map((item: any, index: number) => {
 
 onLoad(async (options) => {
   currentId.value = options.currentId
+  console.log(options.currentId)
   if (options.type === 'share') {
     type.value = 'share'
     const res = await apiGetWallInfo<MyData>({ id: currentId.value })
@@ -103,8 +104,8 @@ onLoad(async (options) => {
         picurl: item.smallPicurl.replace('_small.webp', '.jpg'),
       }
     })
-    console.log('storageClassList', storageClassList)
   }
+  console.log(storageClassList)
   currentIndex.value = storageClassList.findIndex((item: any) => item._id === currentId.value)
   pushReadIndexList(currentIndex.value)
   currentInfo.value = storageClassList[currentIndex.value]

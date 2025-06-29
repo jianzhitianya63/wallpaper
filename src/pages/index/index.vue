@@ -44,6 +44,13 @@ async function getDayRandom() {
 }
 getDayRandom()
 
+function handlePreview(id: string) {
+  uni.setStorageSync('classifyList', dayRandom.value)
+  uni.navigateTo({
+    url: `/pages/preview/preview?currentId=${id}`,
+  })
+}
+
 async function getNotice() {
   const res = await apiGetNotice<MyData>()
   noticeList.value = res.data
@@ -132,13 +139,13 @@ onShareTimeline(() => {
     <view class="ml-30rpx mt-30rpx w-720rpx">
       <scroll-view scroll-x class="whitespace-nowrap">
         <view v-for="(item, index) in dayRandom" :key="index" class="mr-15rpx inline-block h-430rpx w-200rpx last:mr-0">
-          <navigator url="/pages/preview/preview" class="h-100% w-100%">
+          <view url="/pages/preview/preview" class="h-100% w-100%" @click="handlePreview(item._id)">
             <image
               :src="item.smallPicurl"
               mode="aspectFill"
               class="h-100% w-100% rounded-10rpx"
             />
-          </navigator>
+          </view>
         </view>
       </scroll-view>
     </view>
